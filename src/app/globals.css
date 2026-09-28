@@ -1,26 +1,288 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFF8E1;
+  --foreground: #302a23;
+  --card: #fffdf3;
+  --accent: #f6d96b;
+  --accent-light: #fff1a8;
+  --border: #5c4f3d;
+  --muted: #746b5f;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  margin: 0;
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-nunito), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-fredoka), var(--font-cn), "PingFang SC", sans-serif;
+  color: var(--foreground);
+}
+
+/* 中文专用字体类 - 强制使用无衬线中文字体 */
+.font-cn {
+  font-family: var(--font-cn), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+/* 强制所有中文内容使用无衬线字体 */
+.font-sans-cn {
+  font-family: var(--font-cn), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+p {
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--foreground);
+}
+
+/* ===== Doodle 动画 ===== */
+
+@keyframes doodle-float {
+  0% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes doodle-sway {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes doodle-twinkle {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes doodle-drift {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes doodle-wave {
+  0% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(3px);
+  }
+}
+
+/* ===== Hero Doodle 新动画 ===== */
+
+@keyframes doodle-blink {
+  0% {
+    opacity: 0.45;
+    transform: scale(0.94);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 0.45;
+    transform: scale(0.94);
+  }
+}
+
+@keyframes doodle-float-gentle {
+  0% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(4px);
+  }
+}
+
+.animate-doodle-blink {
+  animation: doodle-blink 3.5s ease-in-out infinite;
+}
+
+.animate-doodle-float-gentle {
+  animation: doodle-float-gentle 4s ease-in-out infinite alternate;
+}
+
+.animate-doodle-sway {
+  transform-origin: bottom center;
+  animation: doodle-sway 4s ease-in-out infinite alternate;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-float {
+  animation: doodle-float 3.8s ease-in-out infinite alternate;
+}
+
+.animate-sway {
+  transform-origin: bottom center;
+  animation: doodle-sway 4.5s ease-in-out infinite alternate;
+}
+
+.animate-twinkle {
+  animation: doodle-twinkle 2.8s ease-in-out infinite alternate;
+}
+
+.animate-drift {
+  animation: doodle-drift 4.5s ease-in-out infinite alternate;
+}
+
+.animate-wave {
+  animation: doodle-wave 5s ease-in-out infinite alternate;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.4s ease forwards;
+}
+
+/* Stagger fade-in for cards */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+/* ===== Skills page subtle animations ===== */
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-breathe {
+  animation: breathe 2.5s ease-in-out infinite;
+}
+
+/* ===== Viewport entrance animation (progressive enhancement) ===== */
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .animate-reveal {
+    animation: reveal-up 0.6s ease-out forwards;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+    opacity: 0;
+  }
+}
+
+/* Fallback: browsers without animation-timeline show content immediately */
+@supports not (animation-timeline: view()) {
+  .animate-reveal {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-sway,
+  .animate-twinkle,
+  .animate-drift,
+  .animate-wave,
+  .animate-blink,
+  .animate-fade-out,
+  .animate-doodle-blink,
+  .animate-doodle-float-gentle,
+  .animate-doodle-sway,
+  .animate-fade-in-up,
+  .animate-breathe,
+  .animate-reveal {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e4c95e;
+  border-radius: 999px;
+  border: 2px solid var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d6b94f;
 }

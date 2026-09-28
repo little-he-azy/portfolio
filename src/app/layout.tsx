@@ -1,33 +1,59 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Fredoka,
+  Nunito,
+  Noto_Sans_SC,
+} from "next/font/google";
+
+import "lxgw-wenkai-screen-webfont/style.css";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fredoka = Fredoka({
   subsets: ["latin"],
+  variable: "--font-fredoka",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const nunito = Nunito({
   subsets: ["latin"],
+  variable: "--font-nunito",
+  display: "swap",
 });
 
-export const metadata = {
+const notoSansSC = Noto_Sans_SC({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cn",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
   title: "AZY HE | Portfolio",
   description: "Personal portfolio of AZY HE",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-  <Navbar />
-  {children}
-</body>
+    <html lang="zh-CN">
+      <body
+        className={`
+          ${fredoka.variable}
+          ${nunito.variable}
+          ${notoSansSC.variable}
+          min-h-screen
+          flex
+          flex-col
+          antialiased
+        `}
+      >
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
